@@ -1,0 +1,85 @@
+<!-- Created by Dayu Wang (dwang@stchas.edu) on 2022-05-12 -->
+
+<!-- Last updated by Dayu Wang (dwang@stchas.edu) on 2022-05-13 -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="app/text.js"></script>
+    <script type="text/javascript" src="app/app.js"></script>
+    <link rel="stylesheet" type="text/css" href="style/style.css">
+    <link rel="icon" type="image/x-icon" href="images/Created_2022-05-13_-_Favicon_-_ICO.ico">
+    <title>Wisdom Text Processor</title>
+</head>
+<body>
+<!-- Header -->
+<p>
+    <img style="width:150px;"
+         src="images/Downloaded_2020-08-12_-_SCC_Logo_(Color)_-_SVG.svg"
+         alt="St. Charles Community College">
+</p>
+<p style="margin-top:24pt;text-align:center;font-size:12pt;font-weight:bold;color:#7f1428;text-decoration:underline;">
+    Wisdom Text Processor
+</p>
+<p style="margin-top:28pt;text-align:center;font-size:10pt;font-style:italic;color:darkcyan;">
+    Application Developed by <strong>Dayu Wang</strong> (<a href="mailto:dwang@stchas.edu" target="_blank">dwang@stchas.edu</a>)
+</p>
+
+<!-- Input text -->
+<p style="margin-top:24pt;">
+    <label for="input-text" style="color:darkcyan;">
+        <strong>Input text</strong> (<strong>Ctrl</strong> + <strong>Shift</strong> + <strong>Q</strong> to copy to clipboard, <strong>Ctrl</strong> + <strong>V</strong> to paste from clipboard)</label>
+</p>
+<p style="margin-top:3pt;">
+    <input id="input-text" style="background-color:white;border-color:darkcyan;color:darkcyan;width:calc(100% - 96pt);" placeholder="N/A" autofocus>
+    <button id="paste" style="background-color:darkcyan;">Paste</button>
+    <button id="copy-input" style="background-color:darkcyan;">Copy</button>
+</p>
+
+<!-- Text replacement text -->
+<p style="margin-top:28pt;">
+    <label for="replacement-text" style="color:orangered;">
+        <strong>Character replacement text</strong> (<strong>Ctrl</strong> + <strong>Shift</strong> + <strong>U</strong> to copy to clipboard)
+    </label>
+</p>
+<p style="margin-top:3pt;">
+    <input id="replacement-text" style="border-color:orangered;color:orangered;width:calc(100% - 52pt);" placeholder="N/A" disabled>
+    <button id="copy-replacement" class="copy">Copy</button>
+</p>
+
+<!-- Google Drive view link -->
+<p style="margin-top:28pt;">
+    <label for="view-link" style="color:orangered;">
+        <strong>Google Drive view link</strong> (<strong>Ctrl</strong> + <strong>Shift</strong> + <strong>L</strong> to copy to clipboard)
+    </label>
+</p>
+<p style="margin-top:3pt;">
+    <input id="view-link" style="border-color:orangered;color:orangered;width:calc(100% - 52pt);" placeholder="N/A" disabled>
+    <button id="copy-view-link" class="copy">Copy</button>
+</p>
+
+<!-- Google Drive download link -->
+<p style="margin-top:28pt;">
+    <label for="download-link" style="color:orangered;">
+        <strong>Google Drive direct download link</strong> (<strong>Ctrl</strong> + <strong>Shift</strong> + <strong>K</strong> to copy to clipboard)
+    </label>
+</p>
+<p style="margin-top:3pt;">
+    <input id="download-link" style="border-color:orangered;color:orangered;width:calc(100% - 52pt);" placeholder="N/A" disabled>
+    <button id="copy-download-link" class="copy">Copy</button>
+</p>
+
+<!-- Access code generator -->
+<p style="margin-top:28pt;">
+    <label for="access-code" style="color:seagreen;">
+        <strong>Access code generator</strong> (<strong>Ctrl</strong> + <strong>Shift</strong> + <strong>/</strong> to generate an access code and copy it to clipboard)
+    </label>
+</p>
+<p style="margin-top:3pt;">
+    <input id="access-code" style="border-color:seagreen;color:seagreen;width:calc(100% - 67pt);" placeholder="N/A" disabled>
+    <button id="generate-code" style="background:seagreen;padding-bottom:2pt;width:55pt;">Generate</button>
+</p>
+</body>
+</html>

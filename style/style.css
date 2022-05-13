@@ -1,0 +1,73 @@
+/* Created by Dayu Wang (dwang@stchas.edu) on 2022-05-12 */
+
+/* Last updated by Dayu Wang (dwang@stchas.edu) on 2022-05-13 */
+
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+body {
+    background-color: whitesmoke;
+    color: black;
+    font: normal normal 11pt/150% Verdana, sans-serif;
+    text-decoration-skip-ink: none;
+    margin: 0;
+    padding: 12pt;
+    text-align: left;
+}
+
+button {
+    border: none;
+    border-radius: 5px;
+    display: inline-block;
+    color: white;
+    font: normal normal 10pt/normal Arial;
+    height: 18pt;
+    margin: 0;
+    padding: 3pt;
+    text-align: center;
+    vertical-align: middle;
+    width: 40pt;
+}
+
+button:focus {
+    outline: none;
+}
+
+img {
+    border: none;
+    display: block;
+    height: auto;
+    margin: 0 auto;
+    max-width: 100%;
+    padding: 0;
+}
+
+input {
+    background-color: whitesmoke;
+    border-style: solid;
+    border-width: 1px;
+    font: normal normal 10pt/normal Verdana, sans-serif;
+    outline: none;
+    margin: 0;
+    padding: 3pt;
+    vertical-align: middle;
+}
+
+input:focus {
+    outline: none;
+}
+
+label, p {
+    margin: 0;
+    padding: 0;
+}
+
+.copy {
+    background-color: orangered;
+}
