@@ -17,8 +17,8 @@ function restoreButtons() {
 function clearAccessCode() { document.getElementById("access-code").value = ""; }
 
 /** Shows Google Drive URLs in the document.
-    @param {string} text: a (possible) Google Drive share URL
-*/
+ @param {string} text: a (possible) Google Drive share URL
+ */
 function showUrls(text) {
     const urls = googleUrls(text);
     document.getElementById("view-link").value = urls === null ? "" : urls.view;
@@ -98,6 +98,11 @@ function copyAccessCode() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+    // Set placeholders for all input textboxes.
+    for (let inputTextbox of document.getElementsByTagName("input")) {
+        inputTextbox.setAttribute("placeholder", "N/A");
+    }
+
     // Synchronize user input.
     document.getElementById("input-text").addEventListener("keyup", function(e) {
         if (!e.ctrlKey && e.key.toUpperCase() !== "CONTROL" && e.key.toUpperCase() !== "SHIFT" && e.key.toUpperCase() !== "ALT") {

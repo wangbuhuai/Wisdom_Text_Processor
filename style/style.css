@@ -4,10 +4,16 @@
 
 
 a {
+    outline: none;
     text-decoration: none;
 }
 
+a:focus {
+    outline: none;
+}
+
 a:hover {
+    outline: none;
     text-decoration: underline;
 }
 
