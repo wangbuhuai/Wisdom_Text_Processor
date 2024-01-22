@@ -1,6 +1,6 @@
 /* Created by Dayu Wang (dwang@stchas.edu) on 2022-05-12 */
 
-/* Last updated by Dayu Wang (dwang@stchas.edu) on 2022-05-13 */
+/* Last updated by Dayu Wang (dwang@stchas.edu) on 2024-01-22 */
 
 
 a {
@@ -75,5 +75,5 @@ label, p {
 }
 
 .copy {
-    background-color: orangered;
+    background-color: #b60200;
 }

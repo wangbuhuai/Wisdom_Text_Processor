@@ -1,6 +1,6 @@
 <!-- Created by Dayu Wang (dwang@stchas.edu) on 2022-05-12 -->
 
-<!-- Last updated by Dayu Wang (dwang@stchas.edu) on 2022-05-13 -->
+<!-- Last updated by Dayu Wang (dwang@stchas.edu) on 2024-01-22 -->
 
 
 <!DOCTYPE html>
@@ -23,63 +23,74 @@
 <p style="margin-top:24pt;text-align:center;font-size:12pt;font-weight:bold;color:#7f1428;text-decoration:underline;">
     Wisdom Text Processor
 </p>
-<p style="margin-top:28pt;text-align:center;font-size:10pt;font-style:italic;color:darkcyan;">
+<p style="margin-top:28pt;text-align:center;font-size:10pt;font-style:italic;color:#2c634c;">
     Application Developed by <strong>Dayu Wang</strong> (<a href="mailto:dwang@stchas.edu" target="_blank">dwang@stchas.edu</a>)
 </p>
 
 <!-- Input text -->
 <p style="margin-top:24pt;">
-    <label for="input-text" style="color:darkcyan;">
+    <label for="input-text" style="color:#2c634c;">
         <strong>Input text</strong> (<strong>Ctrl</strong> + <strong>Shift</strong> + <strong>Q</strong> to copy to clipboard, <strong>Ctrl</strong> + <strong>V</strong> to paste from clipboard)</label>
 </p>
 <p style="margin-top:3pt;">
-    <input id="input-text" style="background-color:white;border-color:darkcyan;color:darkcyan;width:calc(100% - 96pt);" autofocus>
-    <button id="paste" style="background-color:darkcyan;padding-bottom:2pt;">Paste</button>
-    <button id="copy-input" style="background-color:darkcyan;">Copy</button>
+    <input id="input-text" style="background-color:white;border-color:#2c634c;color:#2c634c;width:calc(100% - 96pt);" autofocus>
+    <button id="paste" style="background-color:#2c634c;padding-bottom:2pt;">Paste</button>
+    <button id="copy-input" style="background-color:#2c634c;">Copy</button>
 </p>
 
 <!-- Text replacement text -->
 <p style="margin-top:28pt;">
-    <label for="replacement-text" style="color:orangered;">
+    <label for="replacement-text" style="color:#b60200;">
         <strong>Character replacement text</strong> (<strong>Ctrl</strong> + <strong>Shift</strong> + <strong>U</strong> to copy to clipboard)
     </label>
 </p>
 <p style="margin-top:3pt;">
-    <input id="replacement-text" style="border-color:orangered;color:orangered;width:calc(100% - 52pt);" disabled>
+    <input id="replacement-text" style="border-color:#b60200;color:#b60200;width:calc(100% - 52pt);" disabled>
     <button id="copy-replacement" class="copy">Copy</button>
 </p>
 
 <!-- Google Drive view link -->
 <p style="margin-top:28pt;">
-    <label for="view-link" style="color:orangered;">
+    <label for="view-link" style="color:#b60200;">
         <strong>Google Drive view link</strong> (<strong>Ctrl</strong> + <strong>Shift</strong> + <strong>L</strong> to copy to clipboard)
     </label>
 </p>
 <p style="margin-top:3pt;">
-    <input id="view-link" style="border-color:orangered;color:orangered;width:calc(100% - 52pt);" disabled>
+    <input id="view-link" style="border-color:#b60200;color:#b60200;width:calc(100% - 52pt);" disabled>
     <button id="copy-view-link" class="copy">Copy</button>
 </p>
 
 <!-- Google Drive download link -->
 <p style="margin-top:28pt;">
-    <label for="download-link" style="color:orangered;">
+    <label for="download-link" style="color:#b60200;">
         <strong>Google Drive direct download link</strong> (<strong>Ctrl</strong> + <strong>Shift</strong> + <strong>K</strong> to copy to clipboard)
     </label>
 </p>
 <p style="margin-top:3pt;">
-    <input id="download-link" style="border-color:orangered;color:orangered;width:calc(100% - 52pt);" disabled>
+    <input id="download-link" style="border-color:#b60200;color:#b60200;width:calc(100% - 52pt);" disabled>
     <button id="copy-download-link" class="copy">Copy</button>
+</p>
+
+<!-- OneDrive view link -->
+<p style="margin-top:28pt;">
+    <label for="onedrive-view-link" style="color:#b60200;">
+        <strong>OneDrive view link</strong> (<strong>Ctrl</strong> + <strong>Shift</strong> + <strong>H</strong> to copy to clipboard)
+    </label>
+</p>
+<p style="margin-top:3pt;">
+    <input id="onedrive-view-link" style="border-color:#b60200;color:#b60200;width:calc(100% - 52pt);" disabled>
+    <button id="copy-onedrive-view-link" class="copy">Copy</button>
 </p>
 
 <!-- Access code generator -->
 <p style="margin-top:28pt;">
-    <label for="access-code" style="color:seagreen;">
+    <label for="access-code" style="color:#2c634c;">
         <strong>Access code generator</strong> (<strong>Ctrl</strong> + <strong>Shift</strong> + <strong>/</strong> to generate an access code and copy it to clipboard)
     </label>
 </p>
 <p style="margin-top:3pt;">
-    <input id="access-code" style="border-color:seagreen;color:seagreen;width:calc(100% - 67pt);" disabled>
-    <button id="generate-code" style="background:seagreen;padding-bottom:2pt;width:55pt;">Generate</button>
+    <input id="access-code" style="border-color:#2c634c;color:#2c634c;width:calc(100% - 67pt);" disabled>
+    <button id="generate-code" style="background:#2c634c;padding-bottom:2pt;width:55pt;">Generate</button>
 </p>
 </body>
 </html>

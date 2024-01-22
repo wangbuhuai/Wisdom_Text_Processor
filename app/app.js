@@ -1,28 +1,31 @@
 // Created by Dayu Wang (dwang@stchas.edu) on 2022-05-12
 
-// Last updated by Dayu Wang (dwang@stchas.edu) on 2022-05-13
+// Last updated by Dayu Wang (dwang@stchas.edu) on 2024-01-22
 
 
 /** Restores all the buttons in the document to their initial states. */
 function restoreButtons() {
-    document.getElementById("paste").style.backgroundColor = "darkcyan";
-    document.getElementById("copy-input").style.backgroundColor = "darkcyan";
-    document.getElementById("copy-replacement").style.backgroundColor = "orangered";
-    document.getElementById("copy-view-link").style.backgroundColor = "orangered";
-    document.getElementById("copy-download-link").style.backgroundColor = "orangered";
-    document.getElementById("generate-code").style.backgroundColor = "seagreen";
+    document.getElementById("paste").style.backgroundColor = "#2c634c";
+    document.getElementById("copy-input").style.backgroundColor = "#2c634c";
+    document.getElementById("copy-replacement").style.backgroundColor = "#b60200";
+    document.getElementById("copy-view-link").style.backgroundColor = "#b60200";
+    document.getElementById("copy-download-link").style.backgroundColor = "#b60200";
+    document.getElementById("copy-onedrive-view-link").style.backgroundColor = "#b60200";
+    document.getElementById("generate-code").style.backgroundColor = "#2c634c";
 }
 
 /** Clears the access code. */
 function clearAccessCode() { document.getElementById("access-code").value = ""; }
 
-/** Shows Google Drive URLs in the document.
- @param {string} text: a (possible) Google Drive share URL
- */
+/** Shows Google Drive and OneDrive URLs in the document.
+    @param {string} text: a (possible) Google Drive share URL
+*/
 function showUrls(text) {
     const urls = googleUrls(text);
+    const urls2 = onedriveUrls(text);
     document.getElementById("view-link").value = urls === null ? "" : urls.view;
     document.getElementById("download-link").value = urls === null ? "" : urls.download;
+    document.getElementById("onedrive-view-link").value = urls2 === null ? "" : urls2.view;
 }
 
 /** Updates the document when user pastes some text to the input textbox. */
@@ -88,6 +91,15 @@ function copyDownloadLink() {
     });
 }
 
+/** Copies the OneDrive view URL. */
+function copyOneDriveViewLink() {
+    navigator.clipboard.writeText(document.getElementById("onedrive-view-link").value).then(() => {
+        restoreButtons();
+        clearAccessCode();
+        document.getElementById("copy-onedrive-view-link").style.backgroundColor = "blue";
+    });
+}
+
 /** Generates an access code and copies it to the clipboard. */
 function copyAccessCode() {
     document.getElementById("access-code").value = generateAccessCode();
@@ -115,6 +127,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("copy-replacement").addEventListener("click", () => { copyReplacementText(); });
     document.getElementById("copy-view-link").addEventListener("click", () => { copyViewUrl(); });
     document.getElementById("copy-download-link").addEventListener("click", () => { copyDownloadLink(); });
+    document.getElementById("copy-onedrive-view-link").addEventListener("click", () => { copyOneDriveViewLink(); });
     document.getElementById("generate-code").addEventListener("click", () => { copyAccessCode(); });
     // Add key up listeners.
     document.onkeyup = function(e) {
@@ -123,6 +136,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (e.ctrlKey && e.shiftKey && e.key.toUpperCase() === "L") { copyViewUrl(); }
         if (e.ctrlKey && e.shiftKey && e.key.toUpperCase() === "K") { copyDownloadLink(); }
         if (e.ctrlKey && e.shiftKey && e.key.toUpperCase() === "Q") { copyOriginalInput(); }
+        if (e.ctrlKey && e.shiftKey && e.key.toUpperCase() === "H") { copyOneDriveViewLink(); }
         if (e.ctrlKey && e.shiftKey && e.key.toUpperCase() === "?") { copyAccessCode(); }
         if (e.key.toUpperCase() === "TAB") {
             restoreButtons();

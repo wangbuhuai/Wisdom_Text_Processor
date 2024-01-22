@@ -1,6 +1,6 @@
 // Created by Dayu Wang (dwang@stchas.edu) on 2022-05-12
 
-// Last updated by Dayu Wang (dwang@stchas.edu) on 2022-05-13
+// Last updated by Dayu Wang (dwang@stchas.edu) on 2024-01-22
 
 
 /** Replaces invalid characters in a string to form a valid filename.
@@ -29,6 +29,20 @@ function googleUrls(text) {
         return {
             "view": String.raw`https://drive.google.com/uc?export=view&id=` + documentId,
             "download": String.raw`https://drive.google.com/uc?export=download&id=` + documentId
+        };
+    }
+    return null;
+}
+
+/** Generates the OneDrive view URL from a OneDrive share URL.
+    @param {string} text: a (possible) OneDrive share URL
+    @returns {Object|null}: an object containing the OneDrive view URL;
+                            or {null} if the input text is not a valid OneDrive share URL
+*/
+function onedriveUrls(text) {
+    if (text.includes(String.raw`my.sharepoint.com`) && text.includes(String.raw`?e=`)) {
+        return {
+            "view": text.substring(0, text.indexOf(String.raw`?e=`)) + String.raw`?download=1`
         };
     }
     return null;
