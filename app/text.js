@@ -1,6 +1,6 @@
 // Created by Dayu Wang (dwang@stchas.edu) on 2022-05-12
 
-// Last updated by Dayu Wang (dwang@stchas.edu) on 2024-01-26
+// Last updated by Dayu Wang (dwang@stchas.edu) on 2024-01-27
 
 
 /** Replaces invalid characters in a string to form a valid filename.
@@ -58,6 +58,59 @@ function canvasUrl(text) {
         return {
             "download": String.raw`src='/courses/` + courseId + String.raw`/files/` + fileId + String.raw`/download' id='` + fileId + String.raw`'`
         };
+    }
+    return null;
+}
+
+const urlCode = {
+    '!': String.raw`%21`,
+    '"': String.raw`%22`,
+    '#': String.raw`%23`,
+    '$': String.raw`%24`,
+    '%': String.raw`%25`,
+    '&': String.raw`%26`,
+    '\'': String.raw`%27`,
+    '(': String.raw`%28`,
+    ')': String.raw`%29`,
+    '*': String.raw`%2A`,
+    '+': String.raw`%2B`,
+    ',': String.raw`%2C`,
+    '-': String.raw`%2D`,
+    '.': String.raw`%2E`,
+    '/': String.raw`%2F`,
+    ':': String.raw`%3A`,
+    ';': String.raw`%3B`,
+    '<': String.raw`%3C`,
+    '=': String.raw`%3D`,
+    '>': String.raw`%3E`,
+    '?': String.raw`%3F`,
+    '@': String.raw`%40`,
+    '[': String.raw`%5B`,
+    '\\': String.raw`%5C`,
+    ']': String.raw`%5D`,
+    '^': String.raw`%5E`,
+    '_': String.raw`%5F`,
+    '`': String.raw`%60`,
+    '{': String.raw`%7B`,
+    '|': String.raw`%7C`,
+    '}': String.raw`%7D`,
+    '~': String.raw`%7E`,
+    ' ': String.raw`%20`
+};
+
+/** Generates the Canvas Latex math equation element from a Latex equation.
+    @param {string} text - a (possible) Latex equation
+    @returns {Object|null} - an object containing the Canvas Latex math equation element;
+                             or {null} if the input text is not a valid Latex equation
+*/
+function canvasLatexEquation(text) {
+    if (text.match(/^\\boldsymbol/g)) {
+        let latexElement = String.raw`<img style='border:none;margin:0;padding:0;vertical-align:middle;' src='/equation_images/`;
+        for (let i = 0; i < text.length; i++) {
+            if (text.at(i) in urlCode) { latexElement += urlCode[text.at(i)].replace(/%/g, String.raw`%25`); }
+            else { latexElement += text.at(i); }
+        }
+        return { "html": latexElement + String.raw`?scale=1' class='equation_image' alt='Latex: ` + text + String.raw`'>` };
     }
     return null;
 }

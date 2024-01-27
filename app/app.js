@@ -1,6 +1,6 @@
 // Created by Dayu Wang (dwang@stchas.edu) on 2022-05-12
 
-// Last updated by Dayu Wang (dwang@stchas.edu) on 2024-01-26
+// Last updated by Dayu Wang (dwang@stchas.edu) on 2024-01-27
 
 
 /** Restores all the buttons in the document to their initial states. */
@@ -12,6 +12,7 @@ function restoreButtons() {
     document.getElementById("copy-google-drive-download-link").style.backgroundColor = "#b60200";
     document.getElementById("copy-onedrive-download-link").style.backgroundColor = "#b60200";
     document.getElementById("copy-canvas-download-link").style.backgroundColor = "#b60200";
+    document.getElementById("copy-canvas-latex-equation-element").style.backgroundColor = "#b60200";
     document.getElementById("generate-code").style.backgroundColor = "#2c634c";
 }
 
@@ -44,6 +45,14 @@ function showCanvasUrl(text) {
     document.getElementById("canvas-download-link").value = url === null ? "" : url.download;
 }
 
+/** Shows Canvas Latex equation element in the document.
+    @param {string} text - a (possible) Latex equation
+*/
+function showCanvasLatexEquationElement(text) {
+    const element = canvasLatexEquation(text);
+    document.getElementById("canvas-latex-equation-element").value = element === null ? "" : element.html;
+}
+
 /** Updates the document when user pastes some text to the input textbox. */
 function pasteToInput() {
     restoreButtons();
@@ -57,6 +66,8 @@ function pasteToInput() {
         showOneDriveUrl(text);
         // Generate Canvas URL.
         showCanvasUrl(text);
+        // Generate Canvas Latex equation element
+        showCanvasLatexEquationElement(text);
         // Generate replacement text.
         text = replaceInvalidCharacters(text);
         document.getElementById("replacement-text").value = text;
@@ -74,6 +85,8 @@ function synchronizeInput() {
     showOneDriveUrl(text);
     // Generate Canvas download URL.
     showCanvasUrl(text);
+    // Generate Canvas Latex equation element
+    showCanvasLatexEquationElement(text);
     // Generate replacement text.
     text = replaceInvalidCharacters(text);
     document.getElementById("replacement-text").value = text;
@@ -137,6 +150,15 @@ function copyCanvasDownloadUrl() {
     });
 }
 
+/** Copies the Canvas Latex equation element. */
+function copyCanvasLatexEquationElement() {
+    navigator.clipboard.writeText(document.getElementById("canvas-latex-equation-element").value).then(() => {
+        restoreButtons();
+        clearAccessCode();
+        document.getElementById("copy-canvas-latex-equation-element").style.backgroundColor = "blue";
+    });
+}
+
 /** Generates an access code and copies it to the clipboard. */
 function copyAccessCode() {
     document.getElementById("access-code").value = generateAccessCode();
@@ -166,6 +188,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("copy-google-drive-download-link").addEventListener("click", () => { copyGoogleDriveDownloadUrl(); });
     document.getElementById("copy-onedrive-download-link").addEventListener("click", () => { copyOneDriveDownloadUrl(); });
     document.getElementById("copy-canvas-download-link").addEventListener("click", () => { copyCanvasDownloadUrl(); });
+    document.getElementById("copy-canvas-latex-equation-element").addEventListener("click", () => { copyCanvasLatexEquationElement(); });
     document.getElementById("generate-code").addEventListener("click", () => { copyAccessCode(); });
     // Add key up listeners.
     document.onkeyup = function(e) {
@@ -177,6 +200,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (e.ctrlKey && e.shiftKey && e.key.toUpperCase() === "H") { copyOneDriveDownloadUrl(); }
         if (e.ctrlKey && e.shiftKey && e.key.toUpperCase() === ":") { copyCanvasDownloadUrl(); }
         if (e.ctrlKey && e.shiftKey && e.key.toUpperCase() === "?") { copyAccessCode(); }
+        if (e.ctrlKey && e.shiftKey && e.key.toUpperCase() === "\"") { copyCanvasLatexEquationElement(); }
         if (e.key.toUpperCase() === "TAB") {
             restoreButtons();
             clearAccessCode();
