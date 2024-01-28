@@ -1,6 +1,6 @@
 // Created by Dayu Wang (dwang@stchas.edu) on 2022-05-12
 
-// Last updated by Dayu Wang (dwang@stchas.edu) on 2024-01-27
+// Last updated by Dayu Wang (dwang@stchas.edu) on 2024-01-28
 
 
 /** Replaces invalid characters in a string to form a valid filename.
@@ -110,7 +110,7 @@ function canvasLatexEquation(text) {
             if (text.at(i) in urlCode) { latexElement += urlCode[text.at(i)].replace(/%/g, String.raw`%25`); }
             else { latexElement += text.at(i); }
         }
-        return { "html": latexElement + String.raw`?scale=1' class='equation_image' alt='Latex: ` + text + String.raw`'>` };
+        return { "html": latexElement + String.raw`?scale=1' class='equation_image' title='` + text + String.raw`' alt='N/A'>` };
     }
     return null;
 }
