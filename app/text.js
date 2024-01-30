@@ -1,6 +1,6 @@
 // Created by Dayu Wang (dwang@stchas.edu) on 2022-05-12
 
-// Last updated by Dayu Wang (dwang@stchas.edu) on 2024-01-28
+// Last updated by Dayu Wang (dwang@stchas.edu) on 2024-01-30
 
 
 /** Replaces invalid characters in a string to form a valid filename.
@@ -111,6 +111,19 @@ function canvasLatexEquation(text) {
             else { latexElement += text.at(i); }
         }
         return { "html": latexElement + String.raw`?scale=1' class='equation_image' title='` + text + String.raw`' alt='N/A'>` };
+    }
+    return null;
+}
+
+/** Generates a YouTube video short URL from a regular YouTube video URL.
+    @param {string} text - a (possible) regular YouTube video URL
+    @returns {Object|null} - an object containing a YouTube video short ULR;
+                             or {null} if the input text is not a valid regular YouTube video URL
+*/
+function youTubeVideoShortUrl(text) {
+    if (text.includes(String.raw`youtube.com`) && text.match(/\?v=\w+$/g)) {
+        const videoId = text.match(/(?<=\?v=)\w+$/g);
+        return { "url": String.raw`https://youtu.be/` + videoId };
     }
     return null;
 }
