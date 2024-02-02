@@ -1,6 +1,6 @@
 // Created by Dayu Wang (dwang@stchas.edu) on 2022-05-12
 
-// Last updated by Dayu Wang (dwang@stchas.edu) on 2024-01-30
+// Last updated by Dayu Wang (dwang@stchas.edu) on 2024-02-02
 
 
 /** Replaces invalid characters in a string to form a valid filename.
@@ -17,22 +17,24 @@ function replaceInvalidCharacters(text) {
     return text;
 }
 
-/** Generates the Google Drive view URL and Google Drive download URL from a Google Drive share URL.
-    [Note] Google no longer supports the direct view and download URLs since 2024-01-02.
-    @param {string} text - a (possible) Google Drive share URL
-    @returns {Object|null} -  an object containing the Google Drive view URL and Google Drive download URL;
-                              or {null} if the input text is not a valid Google Drive share URL
-*/
-function googleUrls(text) {
-    if (text.includes(String.raw`https://drive.google.com/file/d/`) && text.includes(String.raw`/view?usp=sharing`)) {
-        const documentId = text.substring(32, 65);  // Extract the Google Drive document ID.
-        return {
-            "view": String.raw`https://drive.google.com/uc?export=view&id=` + documentId,
-            "download": String.raw`https://drive.google.com/uc?export=download&id=` + documentId
-        };
-    }
-    return null;
-}
+// [No Longer Available] Google Drive direct view/download URL
+
+// /** Generates the Google Drive view URL and Google Drive download URL from a Google Drive share URL.
+//     [Note] Google no longer supports the direct view and download URLs since 2024-01-02.
+//     @param {string} text - a (possible) Google Drive share URL
+//     @returns {Object|null} -  an object containing the Google Drive view URL and Google Drive download URL;
+//                               or {null} if the input text is not a valid Google Drive share URL
+// */
+// function googleUrls(text) {
+//     if (text.includes(String.raw`https://drive.google.com/file/d/`) && text.includes(String.raw`/view?usp=sharing`)) {
+//         const documentId = text.substring(32, 65);  // Extract the Google Drive document ID.
+//         return {
+//             "view": String.raw`https://drive.google.com/uc?export=view&id=` + documentId,
+//             "download": String.raw`https://drive.google.com/uc?export=download&id=` + documentId
+//         };
+//     }
+//     return null;
+// }
 
 /** Generates the OneDrive direct download URL from a business OneDrive share URL.
     @param {string} text -  a (possible) business OneDrive share URL
@@ -46,74 +48,78 @@ function onedriveUrl(text) {
     return null;
 }
 
-/** Generates the Canvas direct download URL from a Canvas preview URL.
+/** Generates the Canvas URLs from a Canvas preview URL.
     @param {string} text - a (possible) Canvas preview URL
-    @returns {Object|null} - an object containing the Canvas direct download URL;
+    @returns {Object|null} - an object containing the Canvas URLs;
                              or {null} if the input text is not a valid Canvas preview URL
 */
-function canvasUrl(text) {
+function canvasUrls(text) {
     if (text.includes(String.raw`stchas.instructure.com`) && text.match(/preview=\d+$/g) !== null) {
+        const institution = String.raw`https://stchas.instructure.com`;  // St. Charles Community College
         const courseId = text.match(/(?<=courses\/)\d{5,}(?=\/files)/g)[0];
         const fileId = text.match(/(?<=preview=)\d{7,}$/g)[0];
         return {
-            "download": String.raw`src='/courses/` + courseId + String.raw`/files/` + fileId + String.raw`/download' id='` + fileId + String.raw`'`
+            "img": String.raw`src='` + institution + String.raw`/courses/` + courseId + String.raw`/files/` + fileId + String.raw`/download' id='` + fileId + String.raw`'`,
+            "href": institution + String.raw`/courses/` + courseId + String.raw`/files/` + fileId + String.raw`/download`
         };
     }
     return null;
 }
 
-const urlCode = {
-    '!': String.raw`%21`,
-    '"': String.raw`%22`,
-    '#': String.raw`%23`,
-    '$': String.raw`%24`,
-    '%': String.raw`%25`,
-    '&': String.raw`%26`,
-    '\'': String.raw`%27`,
-    '(': String.raw`%28`,
-    ')': String.raw`%29`,
-    '*': String.raw`%2A`,
-    '+': String.raw`%2B`,
-    ',': String.raw`%2C`,
-    '-': String.raw`%2D`,
-    '.': String.raw`%2E`,
-    '/': String.raw`%2F`,
-    ':': String.raw`%3A`,
-    ';': String.raw`%3B`,
-    '<': String.raw`%3C`,
-    '=': String.raw`%3D`,
-    '>': String.raw`%3E`,
-    '?': String.raw`%3F`,
-    '@': String.raw`%40`,
-    '[': String.raw`%5B`,
-    '\\': String.raw`%5C`,
-    ']': String.raw`%5D`,
-    '^': String.raw`%5E`,
-    '_': String.raw`%5F`,
-    '`': String.raw`%60`,
-    '{': String.raw`%7B`,
-    '|': String.raw`%7C`,
-    '}': String.raw`%7D`,
-    '~': String.raw`%7E`,
-    ' ': String.raw`%20`
-};
+// [Waiting for Canvas to Fix the Bug] Left/right spacing of Canvas Latex equations cannot be rendered correctly.
 
-/** Generates the Canvas Latex math equation element from a Latex equation.
-    @param {string} text - a (possible) Latex equation
-    @returns {Object|null} - an object containing the Canvas Latex math equation element;
-                             or {null} if the input text is not a valid Latex equation
-*/
-function canvasLatexEquation(text) {
-    if (text.match(/^\\boldsymbol/g)) {
-        let latexElement = String.raw`<img style='border:none;margin:0;padding:0;vertical-align:middle;' src='/equation_images/`;
-        for (let i = 0; i < text.length; i++) {
-            if (text.at(i) in urlCode) { latexElement += urlCode[text.at(i)].replace(/%/g, String.raw`%25`); }
-            else { latexElement += text.at(i); }
-        }
-        return { "html": latexElement + String.raw`?scale=1' class='equation_image' title='` + text + String.raw`' alt='N/A'>` };
-    }
-    return null;
-}
+// const urlCode = {
+//     '!': String.raw`%21`,
+//     '"': String.raw`%22`,
+//     '#': String.raw`%23`,
+//     '$': String.raw`%24`,
+//     '%': String.raw`%25`,
+//     '&': String.raw`%26`,
+//     '\'': String.raw`%27`,
+//     '(': String.raw`%28`,
+//     ')': String.raw`%29`,
+//     '*': String.raw`%2A`,
+//     '+': String.raw`%2B`,
+//     ',': String.raw`%2C`,
+//     '-': String.raw`%2D`,
+//     '.': String.raw`%2E`,
+//     '/': String.raw`%2F`,
+//     ':': String.raw`%3A`,
+//     ';': String.raw`%3B`,
+//     '<': String.raw`%3C`,
+//     '=': String.raw`%3D`,
+//     '>': String.raw`%3E`,
+//     '?': String.raw`%3F`,
+//     '@': String.raw`%40`,
+//     '[': String.raw`%5B`,
+//     '\\': String.raw`%5C`,
+//     ']': String.raw`%5D`,
+//     '^': String.raw`%5E`,
+//     '_': String.raw`%5F`,
+//     '`': String.raw`%60`,
+//     '{': String.raw`%7B`,
+//     '|': String.raw`%7C`,
+//     '}': String.raw`%7D`,
+//     '~': String.raw`%7E`,
+//     ' ': String.raw`%20`
+// };
+//
+// /** Generates the Canvas Latex math equation element from a Latex equation.
+//     @param {string} text - a (possible) Latex equation
+//     @returns {Object|null} - an object containing the Canvas Latex math equation element;
+//                              or {null} if the input text is not a valid Latex equation
+// */
+// function canvasLatexEquation(text) {
+//     if (text.match(/^\\boldsymbol/g)) {
+//         let latexElement = String.raw`<img style='border:none;margin:0;padding:0;vertical-align:middle;' src='/equation_images/`;
+//         for (let i = 0; i < text.length; i++) {
+//             if (text.at(i) in urlCode) { latexElement += urlCode[text.at(i)].replace(/%/g, String.raw`%25`); }
+//             else { latexElement += text.at(i); }
+//         }
+//         return { "html": latexElement + String.raw`?scale=1' class='equation_image' title='` + text + String.raw`' alt='N/A'>` };
+//     }
+//     return null;
+// }
 
 /** Generates a YouTube video short URL from a regular YouTube video URL.
     @param {string} text - a (possible) regular YouTube video URL
@@ -121,8 +127,8 @@ function canvasLatexEquation(text) {
                              or {null} if the input text is not a valid regular YouTube video URL
 */
 function youTubeVideoShortUrl(text) {
-    if (text.includes(String.raw`youtube.com`) && text.match(/\?v=\w+$/g)) {
-        const videoId = text.match(/(?<=\?v=)\w+$/g);
+    if (text.includes(String.raw`youtube.com`) && text.match(/\?v=[A-Za-z0-9_\-]+$/g)) {
+        const videoId = text.match(/(?<=\?v=)[A-Za-z0-9_\-]+$/g);
         return { "url": String.raw`https://youtu.be/` + videoId };
     }
     return null;
