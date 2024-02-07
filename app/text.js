@@ -1,6 +1,6 @@
 // Created by Dayu Wang (dwang@stchas.edu) on 2022-05-12
 
-// Last updated by Dayu Wang (dwang@stchas.edu) on 2024-02-02
+// Last updated by Dayu Wang (dwang@stchas.edu) on 2024-02-07
 
 
 /** Replaces invalid characters in a string to form a valid filename.
@@ -17,24 +17,22 @@ function replaceInvalidCharacters(text) {
     return text;
 }
 
-// [No Longer Available] Google Drive direct view/download URL
-
-// /** Generates the Google Drive view URL and Google Drive download URL from a Google Drive share URL.
-//     [Note] Google no longer supports the direct view and download URLs since 2024-01-02.
-//     @param {string} text - a (possible) Google Drive share URL
-//     @returns {Object|null} -  an object containing the Google Drive view URL and Google Drive download URL;
-//                               or {null} if the input text is not a valid Google Drive share URL
-// */
-// function googleUrls(text) {
-//     if (text.includes(String.raw`https://drive.google.com/file/d/`) && text.includes(String.raw`/view?usp=sharing`)) {
-//         const documentId = text.substring(32, 65);  // Extract the Google Drive document ID.
-//         return {
-//             "view": String.raw`https://drive.google.com/uc?export=view&id=` + documentId,
-//             "download": String.raw`https://drive.google.com/uc?export=download&id=` + documentId
-//         };
-//     }
-//     return null;
-// }
+/** Generates the Google Drive view URL and Google Drive download URL from a Google Drive share URL.
+    [Note] Google no longer supports the direct view and download URLs since 2024-01-02.
+    @param {string} text - a (possible) Google Drive share URL
+    @returns {Object|null} -  an object containing the Google Drive view URL and Google Drive download URL;
+                              or {null} if the input text is not a valid Google Drive share URL
+*/
+function googleUrls(text) {
+    if (text.includes(String.raw`https://drive.google.com/file/d/`) && text.includes(String.raw`/view?usp=sharing`)) {
+        const documentId = text.substring(32, 65);  // Extract the Google Drive document ID.
+        return {
+            "view": String.raw`https://drive.google.com/uc?export=view&id=` + documentId,
+            "download": String.raw`https://drive.google.com/uc?export=download&id=` + documentId
+        };
+    }
+    return null;
+}
 
 /** Generates the OneDrive direct download URL from a business OneDrive share URL.
     @param {string} text -  a (possible) business OneDrive share URL

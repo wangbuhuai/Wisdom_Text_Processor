@@ -1,6 +1,6 @@
 // Created by Dayu Wang (dwang@stchas.edu) on 2022-05-12
 
-// Last updated by Dayu Wang (dwang@stchas.edu) on 2024-02-02
+// Last updated by Dayu Wang (dwang@stchas.edu) on 2024-02-07
 
 
 /** Restores all the buttons in the document to their initial states. */
@@ -9,7 +9,7 @@ function restoreButtons() {
     document.getElementById("copy-input").style.backgroundColor = "#2c634c";
     document.getElementById("copy-replacement").style.backgroundColor = "#b60200";
     // document.getElementById("copy-google-drive-view-link").style.backgroundColor = "#b60200";
-    // document.getElementById("copy-google-drive-download-link").style.backgroundColor = "#b60200";
+    document.getElementById("copy-google-drive-download-link").style.backgroundColor = "#b60200";
     document.getElementById("copy-onedrive-download-link").style.backgroundColor = "#b60200";
     document.getElementById("copy-canvas-image-link").style.backgroundColor = "#b60200";
     document.getElementById("copy-canvas-download-link").style.backgroundColor = "#b60200";
@@ -21,17 +21,15 @@ function restoreButtons() {
 /** Clears the access code. */
 function clearAccessCode() { document.getElementById("access-code").value = ""; }
 
-// [No Longer Available] Google Drive direct view/download URL
-
-// /** Shows Google Drive URLs in the document.
-//     [Note] Google no longer supports the direct view and download URLs since 2024-01-02.
-//     @param {string} text - a (possible) Google Drive share URL
-// */
-// function showGoogleDriveUrls(text) {
-//     const urls = googleUrls(text);
-//     document.getElementById("google-drive-view-link").value = urls === null ? "" : urls.view;
-//     document.getElementById("google-drive-download-link").value = urls === null ? "" : urls.download;
-// }
+/** Shows Google Drive URLs in the document.
+    [Note] Google no longer supports the direct view and download URLs since 2024-01-02.
+    @param {string} text - a (possible) Google Drive share URL
+*/
+function showGoogleDriveUrls(text) {
+    const urls = googleUrls(text);
+    // document.getElementById("google-drive-view-link").value = urls === null ? "" : urls.view;
+    document.getElementById("google-drive-download-link").value = urls === null ? "" : urls.download;
+}
 
 /** Shows business OneDrive direct download URL in the document.
     @param {string} text - a (possible) business OneDrive share URL
@@ -76,7 +74,7 @@ function pasteToInput() {
     navigator.clipboard.readText().then(text => {
         document.getElementById("input-text").value = text;
         // Generate Google Drive URLs.
-        // showGoogleDriveUrls(text);  // [No Longer Available] Google Drive direct view/download URL
+        showGoogleDriveUrls(text);  // [No Longer Available] Google Drive direct view/download URL
         // Generate OneDrive URL.
         showOneDriveUrl(text);
         // Generate Canvas URL.
@@ -97,7 +95,7 @@ function synchronizeInput() {
     clearAccessCode();
     let text = document.getElementById("input-text").value;
     // Generate Google Drive URLs.
-    // showGoogleDriveUrls(text);  // [No Longer Available] Google Drive direct view/download URL
+    showGoogleDriveUrls(text);  // [No Longer Available] Google Drive direct view/download URL
     // Generate OneDrive direct download URL.
     showOneDriveUrl(text);
     // Generate Canvas download URL.
@@ -142,18 +140,16 @@ function copyReplacementText() {
 //     });
 // }
 
-// [No Longer Available] Google Drive direct view/download URL
-
-// /** Copies the Google Drive download URL.
-//     [Note] Google no longer supports the direct view and download URLs since 2024-01-02.
-// */
-// function copyGoogleDriveDownloadUrl() {
-//     navigator.clipboard.writeText(document.getElementById("google-drive-download-link").value).then(() => {
-//         restoreButtons();
-//         clearAccessCode();
-//         document.getElementById("copy-google-drive-download-link").style.backgroundColor = "blue";
-//     });
-// }
+/** Copies the Google Drive download URL.
+    [Note] Google no longer supports the direct view and download URLs since 2024-01-02.
+*/
+function copyGoogleDriveDownloadUrl() {
+    navigator.clipboard.writeText(document.getElementById("google-drive-download-link").value).then(() => {
+        restoreButtons();
+        clearAccessCode();
+        document.getElementById("copy-google-drive-download-link").style.backgroundColor = "blue";
+    });
+}
 
 /** Copies the OneDrive download URL. */
 function copyOneDriveDownloadUrl() {
@@ -229,8 +225,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("copy-replacement").addEventListener("click", () => { copyReplacementText(); });
     // [No Longer Available] Google Drive direct view/download URL
     // document.getElementById("copy-google-drive-view-link").addEventListener("click", () => { copyGoogleDriveViewUrl(); });
-    // [No Longer Available] Google Drive direct view/download URL
-    //document.getElementById("copy-google-drive-download-link").addEventListener("click", () => { copyGoogleDriveDownloadUrl(); });
+    document.getElementById("copy-google-drive-download-link").addEventListener("click", () => { copyGoogleDriveDownloadUrl(); });
     document.getElementById("copy-onedrive-download-link").addEventListener("click", () => { copyOneDriveDownloadUrl(); });
     document.getElementById("copy-canvas-image-link").addEventListener("click", () => { copyCanvasImageUrl(); });
     document.getElementById("copy-canvas-download-link").addEventListener("click", () => { copyCanvasDownloadUrl(); });
@@ -244,7 +239,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (e.ctrlKey && e.shiftKey && e.key.toUpperCase() === "U") { copyReplacementText(); }
         // [No Longer Available] Google Drive direct view/download URL
         // if (e.ctrlKey && e.shiftKey && e.key.toUpperCase() === "L") { copyGoogleDriveViewUrl(); }
-        // if (e.ctrlKey && e.shiftKey && e.key.toUpperCase() === "K") { copyGoogleDriveDownloadUrl(); }
+        if (e.ctrlKey && e.shiftKey && e.key.toUpperCase() === "K") { copyGoogleDriveDownloadUrl(); }
         if (e.ctrlKey && e.shiftKey && e.key.toUpperCase() === "Q") { copyOriginalInput(); }
         if (e.ctrlKey && e.shiftKey && e.key.toUpperCase() === "H") { copyOneDriveDownloadUrl(); }
         if (e.ctrlKey && e.shiftKey && e.key.toUpperCase() === ":") { copyCanvasImageUrl(); }
