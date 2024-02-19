@@ -1,6 +1,6 @@
 // Created by Dayu Wang (dwang@stchas.edu) on 2022-05-12
 
-// Last updated by Dayu Wang (dwang@stchas.edu) on 2024-02-07
+// Last updated by Dayu Wang (dwang@stchas.edu) on 2024-02-18
 
 
 /** Replaces invalid characters in a string to form a valid filename.
@@ -40,7 +40,7 @@ function googleUrls(text) {
                               or {null} if the input text is not a valid business OneDrive share URL
 */
 function onedriveUrl(text) {
-    if ((text.includes(String.raw`my.sharepoint.com`) || text.includes(String.raw`1drv.ms`)) && text.includes(String.raw`?e=`)) {
+    if (text.includes(String.raw`my.sharepoint.com`) && text.includes(String.raw`?e=`)) {
         return { "download": text.substring(0, text.indexOf(String.raw`?e=`)) + String.raw`?download=1` };
     }
     return null;
