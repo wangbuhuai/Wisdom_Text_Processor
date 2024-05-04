@@ -1,6 +1,6 @@
 // Created by Dayu Wang (dwang@stchas.edu) on 2022-05-12
 
-// Last updated by Dayu Wang (dwang@stchas.edu) on 2024-02-18
+// Last updated by Dayu Wang (dwang@stchas.edu) on 2024-05-03
 
 
 /** Replaces invalid characters in a string to form a valid filename.
@@ -24,8 +24,9 @@ function replaceInvalidCharacters(text) {
                               or {null} if the input text is not a valid Google Drive share URL
 */
 function googleUrls(text) {
-    if (text.includes(String.raw`https://drive.google.com/file/d/`) && text.includes(String.raw`/view?usp=sharing`)) {
-        const documentId = text.substring(32, 65);  // Extract the Google Drive document ID.
+    if (text.includes(String.raw`google.com`) && text.includes(String.raw`/d/`)) {
+        // Extract the Google Drive document ID.
+        const documentId = text.substring(text.indexOf(String.raw`/d/`) + 3, text.indexOf(String.raw`/d/`) + 36);
         return {
             "view": String.raw`https://drive.google.com/uc?export=view&id=` + documentId,
             "download": String.raw`https://drive.google.com/uc?export=download&id=` + documentId
