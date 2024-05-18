@@ -1,6 +1,6 @@
 // Created by Dayu Wang (dwang@stchas.edu) on 2022-05-12
 
-// Last updated by Dayu Wang (dwang@stchas.edu) on 2024-05-03
+// Last updated by Dayu Wang (dwang@stchas.edu) on 2024-05-18
 
 
 /** Replaces invalid characters in a string to form a valid filename.
@@ -55,12 +55,20 @@ function onedriveUrl(text) {
 function canvasUrls(text) {
     if (text.includes(String.raw`stchas.instructure.com`) && text.match(/preview=\d+$/g) !== null) {
         const institution = String.raw`https://stchas.instructure.com`;  // St. Charles Community College
-        const courseId = text.match(/(?<=courses\/)\d{5,}(?=\/files)/g)[0];
-        const fileId = text.match(/(?<=preview=)\d{7,}$/g)[0];
-        return {
-            "img": String.raw`src='` + institution + String.raw`/courses/` + courseId + String.raw`/files/` + fileId + String.raw`/download' id='` + fileId + String.raw`'`,
-            "href": institution + String.raw`/courses/` + courseId + String.raw`/files/` + fileId + String.raw`/download`
-        };
+        if (text.includes(String.raw`courses`)) {
+            const courseId = text.match(/(?<=courses\/)\d{5,}(?=\/files)/g)[0];
+            const fileId = text.match(/(?<=preview=)\d{7,}$/g)[0];
+            return {
+                "img": String.raw`src='` + institution + String.raw`/courses/` + courseId + String.raw`/files/` + fileId + String.raw`/download' id='` + fileId + String.raw`'`,
+                "href": institution + String.raw`/courses/` + courseId + String.raw`/files/` + fileId + String.raw`/download`
+            };
+        } else {
+            const fileId = text.match(/(?<=preview=)\d{7,}$/g)[0];
+            return {
+                "img": String.raw`src='` + institution + String.raw`/files/` + fileId + String.raw`/download' id='` + fileId + String.raw`'`,
+                "href": institution + String.raw`/files/` + fileId + String.raw`/download`
+            };
+        }
     }
     return null;
 }
