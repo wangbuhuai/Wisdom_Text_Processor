@@ -1,6 +1,6 @@
 // Created by Dayu Wang (dwang@stchas.edu) on 2022-05-12
 
-// Last updated by Dayu Wang (dwang@stchas.edu) on 2024-05-18
+// Last updated by Dayu Wang (dwang@stchas.edu) on 2024-06-07
 
 
 /** Replaces invalid characters in a string to form a valid filename.
@@ -56,7 +56,7 @@ function canvasUrls(text) {
     if (text.includes(String.raw`stchas.instructure.com`) && text.match(/preview=\d+$/g) !== null) {
         const institution = String.raw`https://stchas.instructure.com`;  // St. Charles Community College
         if (text.includes(String.raw`courses`)) {
-            const courseId = text.match(/(?<=courses\/)\d{5,}(?=\/files)/g)[0];
+            const courseId = text.match(/(?<=courses\/)\d{4,}(?=\/files)/g)[0];
             const fileId = text.match(/(?<=preview=)\d{7,}$/g)[0];
             return {
                 "img": String.raw`src='` + institution + String.raw`/courses/` + courseId + String.raw`/files/` + fileId + String.raw`/download' id='` + fileId + String.raw`'`,
