@@ -1,6 +1,6 @@
 // Created by Dayu Wang (dwang@stchas.edu) on 2022-05-12
 
-// Last updated by Dayu Wang (dwang@stchas.edu) on 2024-06-07
+// Last updated by Dayu Wang (dwang@stchas.edu) on 2024-06-10
 
 
 /** Replaces invalid characters in a string to form a valid filename.
@@ -59,13 +59,13 @@ function canvasUrls(text) {
             const courseId = text.match(/(?<=courses\/)\d{4,}(?=\/files)/g)[0];
             const fileId = text.match(/(?<=preview=)\d{7,}$/g)[0];
             return {
-                "img": String.raw`src='` + institution + String.raw`/courses/` + courseId + String.raw`/files/` + fileId + String.raw`/download' id='` + fileId + String.raw`'`,
+                "img": String.raw`src='` + institution + String.raw`/courses/` + courseId + String.raw`/files/` + fileId + String.raw`/download'`,
                 "href": institution + String.raw`/courses/` + courseId + String.raw`/files/` + fileId + String.raw`/download`
             };
         } else {
             const fileId = text.match(/(?<=preview=)\d{7,}$/g)[0];
             return {
-                "img": String.raw`src='` + institution + String.raw`/files/` + fileId + String.raw`/download' id='` + fileId + String.raw`'`,
+                "img": String.raw`src='` + institution + String.raw`/files/` + fileId + String.raw`/download'`,
                 "href": institution + String.raw`/files/` + fileId + String.raw`/download`
             };
         }
