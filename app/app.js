@@ -1,6 +1,6 @@
 // Created by Dayu Wang (dwang@stchas.edu) on 2022-05-12
 
-// Last updated by Dayu Wang (dwang@stchas.edu) on 2024-02-07
+// Last updated by Dayu Wang (dwang@stchas.edu) on 2024-11-05
 
 
 /** Restores all the buttons in the document to their initial states. */
@@ -89,11 +89,14 @@ function pasteToInput() {
     });
 }
 
-/** Echoes the user input. */
+/** Echoes the user input.
+    @returns: length of raw and processed text
+*/
 function synchronizeInput() {
     restoreButtons();
     clearAccessCode();
     let text = document.getElementById("input-text").value;
+    const rawCount = text.length;
     // Generate Google Drive URLs.
     showGoogleDriveUrls(text);  // [No Longer Available] Google Drive direct view/download URL
     // Generate OneDrive direct download URL.
@@ -106,7 +109,9 @@ function synchronizeInput() {
     showYouTubeVideoShortUrl(text);
     // Generate replacement text.
     text = replaceInvalidCharacters(text);
+    const afterCount = text.length;
     document.getElementById("replacement-text").value = text;
+    return [rawCount, afterCount];
 }
 
 /** Copies the original user input text to the clipboard. */
@@ -216,7 +221,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // Synchronize user input.
     document.getElementById("input-text").addEventListener("keyup", function(e) {
         if (!e.ctrlKey && e.key.toUpperCase() !== "CONTROL" && e.key.toUpperCase() !== "SHIFT" && e.key.toUpperCase() !== "ALT") {
-            synchronizeInput();
+            const lengths = synchronizeInput();
+            document.getElementById("raw-count").textContent = lengths[0].toString();
+            document.getElementById("after-count").textContent = lengths[1].toString();
         }
     });
     // Add mouse click listeners.
