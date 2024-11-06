@@ -73,6 +73,7 @@ function pasteToInput() {
     document.getElementById('paste').style.backgroundColor = 'blue';
     navigator.clipboard.readText().then(text => {
         document.getElementById('input-text').value = text;
+        document.getElementById('raw-count').textContent = text.length.toString() + ' character' + (text.length === 1 ? '' : 's');
         // Generate Google Drive URLs.
         showGoogleDriveUrls(text);  // [No Longer Available] Google Drive direct view/download URL
         // Generate OneDrive URL.
@@ -86,17 +87,16 @@ function pasteToInput() {
         // Generate replacement text.
         text = replaceInvalidCharacters(text);
         document.getElementById('replacement-text').value = text;
+        document.getElementById('after-count').textContent = text.length.toString() + ' character' + (text.length === 1 ? '' : 's');
     });
 }
 
-/** Echoes the user input.
-    @returns: length of raw and processed text
-*/
+/** Echoes the user input. */
 function synchronizeInput() {
     restoreButtons();
     clearAccessCode();
     let text = document.getElementById('input-text').value;
-    const rawCount = text.length;
+    document.getElementById('raw-count').textContent = text.length.toString() + ' character' + (text.length === 1 ? '' : 's');
     // Generate Google Drive URLs.
     showGoogleDriveUrls(text);  // [No Longer Available] Google Drive direct view/download URL
     // Generate OneDrive direct download URL.
@@ -109,9 +109,8 @@ function synchronizeInput() {
     showYouTubeVideoShortUrl(text);
     // Generate replacement text.
     text = replaceInvalidCharacters(text);
-    const afterCount = text.length;
     document.getElementById('replacement-text').value = text;
-    return [rawCount, afterCount];
+    document.getElementById('after-count').textContent = text.length.toString() + ' character' + (text.length === 1 ? '' : 's');
 }
 
 /** Copies the original user input text to the clipboard. */
@@ -221,11 +220,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Synchronize user input.
     document.getElementById('input-text').addEventListener('keyup', function(e) {
         if (!e.ctrlKey && e.key.toUpperCase() !== 'CONTROL' && e.key.toUpperCase() !== 'SHIFT' && e.key.toUpperCase() !== 'ALT') {
-            const lengths = synchronizeInput();
-            document.getElementById('raw-count').textContent = lengths[0].toString() + (lengths[0] === 1 ? ' character' : ' characters');
-            document.getElementById('after-count').textContent = lengths[1].toString() + (lengths[1] === 1 ? ' character' : ' characters');
+            synchronizeInput();
         }
     });
+
     // Add mouse click listeners.
     document.getElementById('paste').addEventListener('click', () => { pasteToInput(); });
     document.getElementById('copy-input').addEventListener('click', () => { copyOriginalInput(); });
