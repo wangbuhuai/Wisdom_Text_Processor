@@ -1,6 +1,6 @@
 // Created by Dayu Wang (dwang@stchas.edu) on 2022-05-12
 
-// Last updated by Dayu Wang (dwang@stchas.edu) on 2024-06-10
+// Last updated by Dayu Wang (dwang@stchas.edu) on 2024-11-05
 
 
 /** Replaces invalid characters in a string to form a valid filename.
@@ -13,7 +13,7 @@ function replaceInvalidCharacters(text) {
     // Replace slash ('/') characters with a single hyphen ('-').
     text = text.replace(/\/+/g, '-');
     // Remove other invalid characters.
-    text = text.replace(/[<>:"/\\|?*]+/g,'');
+    text = text.replace(/[<>:'"/\\|?*]+/g,'');
     return text;
 }
 
@@ -28,8 +28,8 @@ function googleUrls(text) {
         // Extract the Google Drive document ID.
         const documentId = text.substring(text.indexOf(String.raw`/d/`) + 3, text.indexOf(String.raw`/d/`) + 36);
         return {
-            "view": String.raw`https://drive.google.com/uc?export=view&id=` + documentId,
-            "download": String.raw`https://drive.google.com/uc?export=download&id=` + documentId
+            'view': String.raw`https://drive.google.com/uc?export=view&id=` + documentId,
+            'download': String.raw`https://drive.google.com/uc?export=download&id=` + documentId
         };
     }
     return null;
@@ -42,7 +42,7 @@ function googleUrls(text) {
 */
 function onedriveUrl(text) {
     if (text.includes(String.raw`my.sharepoint.com`) && text.includes(String.raw`?e=`)) {
-        return { "download": text.substring(0, text.indexOf(String.raw`?e=`)) + String.raw`?download=1` };
+        return { 'download': text.substring(0, text.indexOf(String.raw`?e=`)) + String.raw`?download=1` };
     }
     return null;
 }
@@ -59,14 +59,14 @@ function canvasUrls(text) {
             const courseId = text.match(/(?<=courses\/)\d{4,}(?=\/files)/g)[0];
             const fileId = text.match(/(?<=preview=)\d{7,}$/g)[0];
             return {
-                "img": String.raw`src='` + institution + String.raw`/courses/` + courseId + String.raw`/files/` + fileId + String.raw`/download'`,
-                "href": institution + String.raw`/courses/` + courseId + String.raw`/files/` + fileId + String.raw`/download`
+                'img': String.raw`src='` + institution + String.raw`/courses/` + courseId + String.raw`/files/` + fileId + String.raw`/download'`,
+                'href': institution + String.raw`/courses/` + courseId + String.raw`/files/` + fileId + String.raw`/download`
             };
         } else {
             const fileId = text.match(/(?<=preview=)\d{7,}$/g)[0];
             return {
-                "img": String.raw`src='` + institution + String.raw`/files/` + fileId + String.raw`/download'`,
-                "href": institution + String.raw`/files/` + fileId + String.raw`/download`
+                'img': String.raw`src='` + institution + String.raw`/files/` + fileId + String.raw`/download'`,
+                'href': institution + String.raw`/files/` + fileId + String.raw`/download`
             };
         }
     }
@@ -77,7 +77,7 @@ function canvasUrls(text) {
 
 // const urlCode = {
 //     '!': String.raw`%21`,
-//     '"': String.raw`%22`,
+//     ''': String.raw`%22`,
 //     '#': String.raw`%23`,
 //     '$': String.raw`%24`,
 //     '%': String.raw`%25`,
@@ -123,7 +123,7 @@ function canvasUrls(text) {
 //             if (text.at(i) in urlCode) { latexElement += urlCode[text.at(i)].replace(/%/g, String.raw`%25`); }
 //             else { latexElement += text.at(i); }
 //         }
-//         return { "html": latexElement + String.raw`?scale=1' class='equation_image' title='` + text + String.raw`' alt='N/A'>` };
+//         return { 'html': latexElement + String.raw`?scale=1' class='equation_image' title='` + text + String.raw`' alt='N/A'>` };
 //     }
 //     return null;
 // }
@@ -136,18 +136,18 @@ function canvasUrls(text) {
 function youTubeVideoShortUrl(text) {
     if (text.includes(String.raw`youtube.com`) && text.match(/\?v=[A-Za-z0-9_\-]+$/g)) {
         const videoId = text.match(/(?<=\?v=)[A-Za-z0-9_\-]+$/g);
-        return { "url": String.raw`https://youtu.be/` + videoId };
+        return { 'url': String.raw`https://youtu.be/` + videoId };
     }
     return null;
 }
 
 /** Generates a random access code for Canvas quizzes.
-    @returns {string} - a random "4 letters + 4 digits" access code for Canvas quizzes
+    @returns {string} - a random '4 letters + 4 digits' access code for Canvas quizzes
 */
 function generateAccessCode() {
     const DIGITS = ['3', '4', '7', '8'];
     const LETTERS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'T', 'U', 'V', 'W', 'X', 'Y'];
-    let result = "";
+    let result = '';
     for (let i = 0; i < 4; i++) {
         const letterIndex = Math.floor(Math.random() * 22);
         result += LETTERS[letterIndex];
