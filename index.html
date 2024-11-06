@@ -4,142 +4,138 @@
 
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
 <head>
-    <meta charset="UTF-8">
-    <script type="text/javascript" src="app/text.js"></script>
-    <script type="text/javascript" src="app/app.js"></script>
-    <link rel="stylesheet" type="text/css" href="style/style.css">
-    <link rel="icon" type="image/x-icon" href="images/Created_2022-05-13_-_Favicon_-_ICO.ico">
+    <meta charset='UTF-8'>
+    <script type='text/javascript' src='app/text.js'></script>
+    <script type='text/javascript' src='app/app.js'></script>
+    <link rel='stylesheet' type='text/css' href='style/style.css'>
+    <link rel='icon' type='image/x-icon' href='images/Created_2022-05-13_-_Favicon_-_ICO.ico'>
     <title>Wisdom Text Processor</title>
 </head>
 <body>
 <!-- Header -->
 <p>
-    <img style="width:150px;"
-         src="images/Downloaded_2020-08-12_-_SCC_Logo_(Color)_-_SVG.svg"
-         alt="St. Charles Community College">
+    <img style='width:150px;'
+         src='images/Downloaded_2020-08-12_-_SCC_Logo_(Color)_-_SVG.svg'
+         alt='St. Charles Community College'>
 </p>
-<p style="margin-top:24pt;text-align:center;font-size:12pt;font-weight:bold;color:#7f1428;text-decoration:underline;">
+<p style='margin-top:24pt;text-align:center;font-size:12pt;font-weight:bold;color:#7f1428;text-decoration:underline;'>
     Wisdom Text Processor
 </p>
-<p style="margin-top:28pt;text-align:center;font-size:10pt;font-style:italic;color:#2c634c;">
-    Application Developed by <strong>Dayu Wang</strong> (<a href="mailto:dwang@stchas.edu" target="_blank">dwang@stchas.edu</a>)
+<p style='margin-top:28pt;text-align:center;font-size:10pt;font-style:italic;color:#2c634c;'>
+    Application Developed by <strong>Dayu Wang</strong> (<a href='mailto:dwang@stchas.edu' target='_blank'>dwang@stchas.edu</a>)
 </p>
 
 <!-- Input text -->
-<p style="margin-top:24pt;">
-    <label for="input-text" style="color:#2c634c;">
+<p style='margin-top:24pt;'>
+    <label for='input-text' style='color:#2c634c;'>
         <strong>Input text</strong> (<strong>Ctrl</strong> + <strong>Shift</strong> + <strong>Q</strong> to copy to clipboard, <strong>Ctrl</strong> + <strong>V</strong> to paste from clipboard)</label>
 </p>
-<p style="margin-top:3pt;">
-    <input id="input-text" style="background-color:white;border-color:#2c634c;color:#2c634c;width:calc(100% - 96pt);" autofocus>
-    <button id="paste" style="background-color:#2c634c;padding-bottom:2pt;">Paste</button>
-    <button id="copy-input" style="background-color:#2c634c;">Copy</button>
+<p style='margin-top:3pt;'>
+    <input id='input-text' style='background-color:white;border-color:#2c634c;color:#2c634c;width:calc(100% - 96pt);' autofocus>
+    <button id='paste' style='background-color:#2c634c;padding-bottom:2pt;'>Paste</button>
+    <button id='copy-input' style='background-color:#2c634c;'>Copy</button>
 </p>
-<p style="margin-top:0;font-size:10pt;color:#2c634c;">
-    <span id="raw-count">0</span> Characters
-</p>
+<p id='raw-count' style='margin-top:0;font-size:10pt;color:#2c634c;'>0 characters</p>
 
 <!-- Text replacement text -->
-<p style="margin-top:28pt;">
-    <label for="replacement-text" style="color:#b60200;">
+<p style='margin-top:28pt;'>
+    <label for='replacement-text' style='color:#b60200;'>
         <strong>Character replacement text</strong> (<strong>Ctrl</strong> + <strong>Shift</strong> + <strong>U</strong> to copy to clipboard)
     </label>
 </p>
-<p style="margin-top:3pt;">
-    <input id="replacement-text" style="border-color:#b60200;color:#b60200;width:calc(100% - 52pt);" disabled>
-    <button id="copy-replacement" class="copy">Copy</button>
+<p style='margin-top:3pt;'>
+    <input id='replacement-text' style='border-color:#b60200;color:#b60200;width:calc(100% - 52pt);' disabled>
+    <button id='copy-replacement' class='copy'>Copy</button>
 </p>
-<p style="margin-top:0;font-size:10pt;color:#b60200;">
-    <span id="after-count">0</span> Characters
-</p>
+<p id='after-count' style='margin-top:0;font-size:10pt;color:#b60200;'>0 characters</p>
 
 <!-- [No Longer Available] Google Drive direct view/download URL -->
 
 <!--&lt;!&ndash; Google Drive view link &ndash;&gt;-->
-<!--<p style="margin-top:28pt;">-->
-<!--    <label for="google-drive-view-link" style="color:#b60200;">-->
+<!--<p style='margin-top:28pt;'>-->
+<!--    <label for='google-drive-view-link' style='color:#b60200;'>-->
 <!--        <strong>Google Drive view link</strong> (<strong>Ctrl</strong> + <strong>Shift</strong> + <strong>L</strong> to copy to clipboard)-->
 <!--    </label>-->
 <!--</p>-->
-<!--<p style="margin-top:3pt;">-->
-<!--    <input id="google-drive-view-link" style="border-color:#b60200;color:#b60200;width:calc(100% - 52pt);" disabled>-->
-<!--    <button id="copy-google-drive-view-link" class="copy">Copy</button>-->
+<!--<p style='margin-top:3pt;'>-->
+<!--    <input id='google-drive-view-link' style='border-color:#b60200;color:#b60200;width:calc(100% - 52pt);' disabled>-->
+<!--    <button id='copy-google-drive-view-link' class='copy'>Copy</button>-->
 <!--</p>-->
 
 <!-- Google Drive download link -->
-<p style="margin-top:28pt;">
-    <label for="google-drive-download-link" style="color:#b60200;">
+<p style='margin-top:28pt;'>
+    <label for='google-drive-download-link' style='color:#b60200;'>
         <strong>Google Drive direct download link</strong> (<strong>Ctrl</strong> + <strong>Shift</strong> + <strong>K</strong> to copy to clipboard)
     </label>
 </p>
-<p style="margin-top:3pt;">
-    <input id="google-drive-download-link" style="border-color:#b60200;color:#b60200;width:calc(100% - 52pt);" disabled>
-    <button id="copy-google-drive-download-link" class="copy">Copy</button>
+<p style='margin-top:3pt;'>
+    <input id='google-drive-download-link' style='border-color:#b60200;color:#b60200;width:calc(100% - 52pt);' disabled>
+    <button id='copy-google-drive-download-link' class='copy'>Copy</button>
 </p>
 
 <!-- OneDrive download link -->
-<p style="margin-top:28pt;">
-    <label for="onedrive-download-link" style="color:#b60200;">
+<p style='margin-top:28pt;'>
+    <label for='onedrive-download-link' style='color:#b60200;'>
         <strong>OneDrive download link</strong> (<strong>Ctrl</strong> + <strong>Shift</strong> + <strong>H</strong> to copy to clipboard)
     </label>
 </p>
-<p style="margin-top:3pt;">
-    <input id="onedrive-download-link" style="border-color:#b60200;color:#b60200;width:calc(100% - 52pt);" disabled>
-    <button id="copy-onedrive-download-link" class="copy">Copy</button>
+<p style='margin-top:3pt;'>
+    <input id='onedrive-download-link' style='border-color:#b60200;color:#b60200;width:calc(100% - 52pt);' disabled>
+    <button id='copy-onedrive-download-link' class='copy'>Copy</button>
 </p>
 
 <!-- Canvas links -->
-<p style="margin-top:28pt;">
-    <label for="canvas-image-link" style="color:#b60200;">
+<p style='margin-top:28pt;'>
+    <label for='canvas-image-link' style='color:#b60200;'>
         <strong>Canvas links</strong> (<strong>Ctrl</strong> + <strong>Shift</strong> + <strong>;</strong> and <strong>Ctrl</strong> + <strong>Shift</strong> + <strong>'</strong> to copy to clipboard)
     </label>
-    <label for="canvas-download-link" style="display:none;"></label>
+    <label for='canvas-download-link' style='display:none;'></label>
 </p>
-<p style="margin-top:3pt;">
-    <input id="canvas-image-link" style="border-color:#b60200;color:#b60200;width:calc(100% - 52pt);" disabled>
-    <button id="copy-canvas-image-link" class="copy">Copy</button>
+<p style='margin-top:3pt;'>
+    <input id='canvas-image-link' style='border-color:#b60200;color:#b60200;width:calc(100% - 52pt);' disabled>
+    <button id='copy-canvas-image-link' class='copy'>Copy</button>
 </p>
-<p style="margin-top:3pt;">
-    <input id="canvas-download-link" style="border-color:#b60200;color:#b60200;width:calc(100% - 52pt);" disabled>
-    <button id="copy-canvas-download-link" class="copy">Copy</button>
+<p style='margin-top:3pt;'>
+    <input id='canvas-download-link' style='border-color:#b60200;color:#b60200;width:calc(100% - 52pt);' disabled>
+    <button id='copy-canvas-download-link' class='copy'>Copy</button>
 </p>
 
 
 <!-- [Waiting for Canvas to Fix the Bug] Left/right spacing of Canvas Latex equations cannot be rendered correctly. -->
 
 <!--&lt;!&ndash; Canvas Latex equation element &ndash;&gt;-->
-<!--<p style="margin-top:28pt;">-->
-<!--    <label for="canvas-latex-equation-element" style="color:#b60200;">-->
+<!--<p style='margin-top:28pt;'>-->
+<!--    <label for='canvas-latex-equation-element' style='color:#b60200;'>-->
 <!--        <strong>Canvas Latex equation element</strong> (<strong>Ctrl</strong> + <strong>Shift</strong> + <strong>[</strong> to copy to clipboard)-->
 <!--    </label>-->
 <!--</p>-->
-<!--<p style="margin-top:3pt;">-->
-<!--    <input id="canvas-latex-equation-element" style="border-color:#b60200;color:#b60200;width:calc(100% - 52pt);" disabled>-->
-<!--    <button id="copy-canvas-latex-equation-element" class="copy">Copy</button>-->
+<!--<p style='margin-top:3pt;'>-->
+<!--    <input id='canvas-latex-equation-element' style='border-color:#b60200;color:#b60200;width:calc(100% - 52pt);' disabled>-->
+<!--    <button id='copy-canvas-latex-equation-element' class='copy'>Copy</button>-->
 <!--</p>-->
 
 <!-- YouTube Video Short URL -->
-<p style="margin-top:28pt;">
-    <label for="youtube-video-short-url-link" style="color:#b60200;">
+<p style='margin-top:28pt;'>
+    <label for='youtube-video-short-url-link' style='color:#b60200;'>
         <strong>YouTube Video Short URL</strong> (<strong>Ctrl</strong> + <strong>Shift</strong> + <strong>Y</strong> to copy to clipboard)
     </label>
 </p>
-<p style="margin-top:3pt;">
-    <input id="youtube-video-short-url-link" style="border-color:#b60200;color:#b60200;width:calc(100% - 52pt);" disabled>
-    <button id="copy-youtube-video-short-url-link" class="copy">Copy</button>
+<p style='margin-top:3pt;'>
+    <input id='youtube-video-short-url-link' style='border-color:#b60200;color:#b60200;width:calc(100% - 52pt);' disabled>
+    <button id='copy-youtube-video-short-url-link' class='copy'>Copy</button>
 </p>
 
 <!-- Access code generator -->
-<p style="margin-top:28pt;">
-    <label for="access-code" style="color:#2c634c;">
+<p style='margin-top:28pt;'>
+    <label for='access-code' style='color:#2c634c;'>
         <strong>Access code generator</strong> (<strong>Ctrl</strong> + <strong>Shift</strong> + <strong>/</strong> to generate an access code and copy it to clipboard)
     </label>
 </p>
-<p style="margin-top:3pt;">
-    <input id="access-code" style="border-color:#2c634c;color:#2c634c;width:calc(100% - 67pt);" disabled>
-    <button id="generate-code" style="background:#2c634c;padding-bottom:2pt;width:55pt;">Generate</button>
+<p style='margin-top:3pt;'>
+    <input id='access-code' style='border-color:#2c634c;color:#2c634c;width:calc(100% - 67pt);' disabled>
+    <button id='generate-code' style='background:#2c634c;padding-bottom:2pt;width:55pt;'>Generate</button>
 </p>
 </body>
 </html>
