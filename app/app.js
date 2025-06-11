@@ -1,6 +1,6 @@
 // Created by Dayu Wang (dwang@stchas.edu) on 2022-05-12
 
-// Last updated by Dayu Wang (dwang@stchas.edu) on 2024-11-05
+// Last updated by Dayu Wang (dwang@stchas.edu) on 2025-06-11
 
 
 /** Restores all the buttons in the document to their initial states. */
@@ -248,7 +248,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.ctrlKey && e.shiftKey && e.key.toUpperCase() === 'Q') { copyOriginalInput(); }
         if (e.ctrlKey && e.shiftKey && e.key.toUpperCase() === 'H') { copyOneDriveDownloadUrl(); }
         if (e.ctrlKey && e.shiftKey && e.key.toUpperCase() === ':') { copyCanvasImageUrl(); }
-        if (e.ctrlKey && e.shiftKey && e.key.toUpperCase() === '\'') { copyCanvasDownloadUrl(); }
+        if (e.ctrlKey && e.shiftKey && e.key.toUpperCase() === String.raw`"`) { copyCanvasDownloadUrl(); }
         if (e.ctrlKey && e.shiftKey && e.key.toUpperCase() === '?') { copyAccessCode(); }
         // [Waiting for Canvas to Fix the Bug] Left/right spacing of Canvas Latex equations cannot be rendered correctly.
         // if (e.ctrlKey && e.shiftKey && e.key.toUpperCase() === '{') { copyCanvasLatexEquationElement(); }
