@@ -1,6 +1,6 @@
 // Created by Dayu Wang (dwang@stchas.edu) on 2022-05-12
 
-// Last updated by Dayu Wang (dwang@stchas.edu) on 2024-11-05
+// Last updated by Dayu Wang (dwang@stchas.edu) on 2025-11-28
 
 
 /** Replaces invalid characters in a string to form a valid filename.
@@ -140,6 +140,24 @@ function youTubeVideoShortUrl(text) {
     }
     return null;
 }
+
+/** Generates Dropbox view and download URLs from an original Dropbox URL.
+    @param text {string}: An original dropbox URL
+    @returns {Object|null}: An object containing the Dropbox view URL and download URL,
+                              or {null} if the input URL is not a valid Dropbox URL
+*/
+const dropboxUrls = (text) => {
+    const regex = /&((dl)|(raw))=((0)|(1))$/;
+    if (text.toLowerCase().includes(String.raw`dropbox.com`) && regex.test(text)) {
+        const viewURL = text.replace(regex, '') + String.raw`&raw=1`;
+        const downloadURL = text.replace(regex, '') + String.raw`&dl=1`;
+        return {
+            'view': viewURL,
+            'download': downloadURL
+        };
+    }
+    return null;
+};
 
 /** Generates a random access code for Canvas quizzes.
     @returns {string} - a random '4 letters + 4 digits' access code for Canvas quizzes

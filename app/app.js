@@ -1,6 +1,6 @@
 // Created by Dayu Wang (dwang@stchas.edu) on 2022-05-12
 
-// Last updated by Dayu Wang (dwang@stchas.edu) on 2025-06-11
+// Last updated by Dayu Wang (dwang@stchas.edu) on 2025-11-28
 
 
 /** Restores all the buttons in the document to their initial states. */
@@ -44,9 +44,18 @@ function showOneDriveUrl(text) {
 */
 function showCanvasUrls(text) {
     const url = canvasUrls(text);
-    document.getElementById('canvas-image-link').value = url === null ? '' : url.img
+    document.getElementById('canvas-image-link').value = url === null ? '' : url.img;
     document.getElementById('canvas-download-link').value = url === null ? '' : url.href;
 }
+
+/** Shows Dropbox URLs in the document.
+    @param text {string}: An original Dropbox URL
+*/
+const showDropboxUrls = (text) => {
+    const urls = dropboxUrls(text);
+    document.getElementById('dropbox-view-link').value = urls === null ? '' : urls.view;
+    document.getElementById('dropbox-download-link').value = urls === null ? '' : urls.download;
+};
 
 // [Waiting for Canvas to Fix the Bug] Left/right spacing of Canvas Latex equations cannot be rendered correctly.
 
@@ -82,6 +91,8 @@ function pasteToInput() {
         showCanvasUrls(text);
         // Generate Canvas Latex equation element.
         // showCanvasLatexEquationElement(text);  // [Waiting for Canvas to Fix the Bug] Left/right spacing of Canvas Latex equations cannot be rendered correctly.
+        // Generate Dropbox view and download URLs.
+        showDropboxUrls(text);
         // Generate YouTube video short URL.
         showYouTubeVideoShortUrl(text);
         // Generate replacement text.
@@ -103,6 +114,8 @@ function synchronizeInput() {
     showOneDriveUrl(text);
     // Generate Canvas download URL.
     showCanvasUrls(text);
+    // Generate Dropbox view and download URLs.
+    showDropboxUrls(text);
     // Generate Canvas Latex equation element.
     // showCanvasLatexEquationElement(text);  // [Waiting for Canvas to Fix the Bug] Left/right spacing of Canvas Latex equations cannot be rendered correctly.
     // Generate YouTube video short URL.
@@ -182,6 +195,23 @@ function copyCanvasDownloadUrl() {
     });
 }
 
+/** Copies the Dropbox view URL. */
+const copyDropboxViewUrl = () => {
+    navigator.clipboard.writeText(document.getElementById('dropbox-view-link').value).then(() => {
+        restoreButtons();
+        clearAccessCode();
+        document.getElementById('copy-dropbox-view-link').style.backgroundColor = 'blue';
+    });
+};
+
+const copyDropboxDownloadUrl = () => {
+    navigator.clipboard.writeText(document.getElementById('dropbox-download-link').value).then(() => {
+        restoreButtons();
+        clearAccessCode();
+        document.getElementById('copy-dropbox-download-link').style.backgroundColor = 'blue';
+    });
+};
+
 // [Waiting for Canvas to Fix the Bug] Left/right spacing of Canvas Latex equations cannot be rendered correctly.
 
 // /** Copies the Canvas Latex equation element. */
@@ -234,6 +264,8 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('copy-onedrive-download-link').addEventListener('click', () => { copyOneDriveDownloadUrl(); });
     document.getElementById('copy-canvas-image-link').addEventListener('click', () => { copyCanvasImageUrl(); });
     document.getElementById('copy-canvas-download-link').addEventListener('click', () => { copyCanvasDownloadUrl(); });
+    document.getElementById('copy-dropbox-view-link').addEventListener('click', () => { copyDropboxViewUrl(); });
+    document.getElementById('copy-dropbox-download-link').addEventListener('click', () => { copyDropboxDownloadUrl(); });
     // [Waiting for Canvas to Fix the Bug] Left/right spacing of Canvas Latex equations cannot be rendered correctly.
     // document.getElementById('copy-canvas-latex-equation-element').addEventListener('click', () => { copyCanvasLatexEquationElement(); });
     document.getElementById('copy-youtube-video-short-url-link').addEventListener('click', () => { copyYouTubeVideoShortUrl(); });
@@ -252,6 +284,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.ctrlKey && e.shiftKey && e.key.toUpperCase() === '?') { copyAccessCode(); }
         // [Waiting for Canvas to Fix the Bug] Left/right spacing of Canvas Latex equations cannot be rendered correctly.
         // if (e.ctrlKey && e.shiftKey && e.key.toUpperCase() === '{') { copyCanvasLatexEquationElement(); }
+        if (e.ctrlKey && e.shiftKey && e.key.toUpperCase() === '<') { copyDropboxViewUrl(); }
+        if (e.ctrlKey && e.shiftKey && e.key.toUpperCase() === '>') { copyDropboxDownloadUrl(); }
         if (e.ctrlKey && e.shiftKey && e.key.toUpperCase() === 'Y') { copyYouTubeVideoShortUrl(); }
         if (e.key.toUpperCase() === 'TAB') {
             restoreButtons();
