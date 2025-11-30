@@ -1,6 +1,6 @@
 // Created by Dayu Wang (dwang@stchas.edu) on 2022-05-12
 
-// Last updated by Dayu Wang (dwang@stchas.edu) on 2025-11-28
+// Last updated by Dayu Wang (dwang@stchas.edu) on 2025-11-30
 
 
 /** Restores all the buttons in the document to their initial states. */
@@ -11,6 +11,8 @@ function restoreButtons() {
     // document.getElementById('copy-google-drive-view-link').style.backgroundColor = '#b60200';
     document.getElementById('copy-google-drive-download-link').style.backgroundColor = '#b60200';
     document.getElementById('copy-onedrive-download-link').style.backgroundColor = '#b60200';
+    document.getElementById('copy-dropbox-view-link').style.backgroundColor = '#b60200';
+    document.getElementById('copy-dropbox-download-link').style.backgroundColor = '#b60200';
     document.getElementById('copy-canvas-image-link').style.backgroundColor = '#b60200';
     document.getElementById('copy-canvas-download-link').style.backgroundColor = '#b60200';
     // document.getElementById('copy-canvas-latex-equation-element').style.backgroundColor = '#b60200';
