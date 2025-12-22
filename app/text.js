@@ -1,6 +1,6 @@
 // Created by Dayu Wang (dwang@stchas.edu) on 2022-05-12
 
-// Last updated by Dayu Wang (dwang@stchas.edu) on 2025-11-28
+// Last updated by Dayu Wang (dwang@stchas.edu) on 2025-12-21
 
 
 /** Replaces invalid characters in a string to form a valid filename.
@@ -35,42 +35,28 @@ function googleUrls(text) {
     return null;
 }
 
-/** Generates the OneDrive direct download URL from a business OneDrive share URL.
-    @param {string} text -  a (possible) business OneDrive share URL
-    @returns {Object|null} -  an object containing the OneDrive direct download URL;
-                              or {null} if the input text is not a valid business OneDrive share URL
+/** Generates a render-in-browser URL from a OneDrive-for-Business file URL.
+    @param text {string}: A (possible) OneDrive-for-Business file URL
+    @returns {string}: The render-in-browser URL
 */
 function onedriveUrl(text) {
-    if (text.includes(String.raw`my.sharepoint.com`) && text.includes(String.raw`?e=`)) {
-        return { 'download': text.substring(0, text.indexOf(String.raw`?e=`)) + String.raw`?download=1` };
-    }
-    return null;
+    const regexOneDrive = /^(?:https?:\/\/)?(?<url>[^.\/ ]+\.sharepoint\.com\/[^? ]+)(?:\?.+)?$/i
+    if (!regexOneDrive.test(text.trim())) { return ''; }
+    return `https://${regexOneDrive.exec(text.trim()).groups.url}?download=1`;
 }
 
-/** Generates the Canvas URLs from a Canvas preview URL.
-    @param {string} text - a (possible) Canvas preview URL
-    @returns {Object|null} - an object containing the Canvas URLs;
-                             or {null} if the input text is not a valid Canvas preview URL
+/** Generates a direct download URL from a Canvas file URL.
+    @param text {string}: A (possible) Canvas file URL
+    @returns {string}: The direct download URL
 */
-function canvasUrls(text) {
-    if (text.includes(String.raw`stchas.instructure.com`) && text.match(/preview=\d+$/g) !== null) {
-        const institution = String.raw`https://stchas.instructure.com`;  // St. Charles Community College
-        if (text.includes(String.raw`courses`)) {
-            const courseId = text.match(/(?<=courses\/)\d{4,}(?=\/files)/g)[0];
-            const fileId = text.match(/(?<=preview=)\d{7,}$/g)[0];
-            return {
-                'img': String.raw`src='` + institution + String.raw`/courses/` + courseId + String.raw`/files/` + fileId + String.raw`/download'`,
-                'href': institution + String.raw`/courses/` + courseId + String.raw`/files/` + fileId + String.raw`/download`
-            };
-        } else {
-            const fileId = text.match(/(?<=preview=)\d{7,}$/g)[0];
-            return {
-                'img': String.raw`src='` + institution + String.raw`/files/` + fileId + String.raw`/download'`,
-                'href': institution + String.raw`/files/` + fileId + String.raw`/download`
-            };
-        }
-    }
-    return null;
+function canvasUrl(text) {
+    const regexCanvas= /^(?:https?:\/\/)?(?<domain>[^.\/ ]+)\.instructure\.com\/(?:courses\/(?<courseId>\d+)\/)?files(?:(?:\/folder\/[^? ]+)?\/?\?preview=)?\/?(?<fileId>\d+)/i;
+    if (!regexCanvas.test(text.trim())) { return ''; }
+    const matches = regexCanvas.exec(text.trim());
+    const fileId = matches.groups.fileId;
+    const courseId = matches.groups.courseId;
+    const domain = matches.groups.domain;
+    return `https://${domain}.instructure.com/${courseId === undefined ? '' : `courses/${courseId}/`}files/${fileId}/download?download_frd=1`;
 }
 
 // [Waiting for Canvas to Fix the Bug] Left/right spacing of Canvas Latex equations cannot be rendered correctly.

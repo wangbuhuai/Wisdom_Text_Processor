@@ -1,6 +1,6 @@
 // Created by Dayu Wang (dwang@stchas.edu) on 2022-05-12
 
-// Last updated by Dayu Wang (dwang@stchas.edu) on 2025-11-30
+// Last updated by Dayu Wang (dwang@stchas.edu) on 2025-12-21
 
 
 /** Restores all the buttons in the document to their initial states. */
@@ -13,7 +13,6 @@ function restoreButtons() {
     document.getElementById('copy-onedrive-download-link').style.backgroundColor = '#b60200';
     document.getElementById('copy-dropbox-view-link').style.backgroundColor = '#b60200';
     document.getElementById('copy-dropbox-download-link').style.backgroundColor = '#b60200';
-    document.getElementById('copy-canvas-image-link').style.backgroundColor = '#b60200';
     document.getElementById('copy-canvas-download-link').style.backgroundColor = '#b60200';
     // document.getElementById('copy-canvas-latex-equation-element').style.backgroundColor = '#b60200';
     document.getElementById('copy-youtube-video-short-url-link').style.backgroundColor = '#b60200';
@@ -33,21 +32,20 @@ function showGoogleDriveUrls(text) {
     document.getElementById('google-drive-download-link').value = urls === null ? '' : urls.download;
 }
 
-/** Shows business OneDrive direct download URL in the document.
-    @param {string} text - a (possible) business OneDrive share URL
+/** Shows OneDrive-for-Business render-in-browser URL in the document.
+    @param text {string}: A (possible) OneDrive-for-Business file URL
 */
 function showOneDriveUrl(text) {
     const url = onedriveUrl(text);
-    document.getElementById('onedrive-download-link').value = url === null ? '' : url.download;
+    document.getElementById('onedrive-download-link').value = url === null ? '' : url;
 }
 
-/** Shows Canvas URLs in the document.
+/** Shows Canvas direct download URL in the document.
     @param {string} text - a (possible) Canvas preview URL
 */
-function showCanvasUrls(text) {
-    const url = canvasUrls(text);
-    document.getElementById('canvas-image-link').value = url === null ? '' : url.img;
-    document.getElementById('canvas-download-link').value = url === null ? '' : url.href;
+function showCanvasUrl(text) {
+    const url = canvasUrl(text);
+    document.getElementById('canvas-download-link').value = url === null ? '' : url;
 }
 
 /** Shows Dropbox URLs in the document.
@@ -90,7 +88,7 @@ function pasteToInput() {
         // Generate OneDrive URL.
         showOneDriveUrl(text);
         // Generate Canvas URL.
-        showCanvasUrls(text);
+        showCanvasUrl(text);
         // Generate Canvas Latex equation element.
         // showCanvasLatexEquationElement(text);  // [Waiting for Canvas to Fix the Bug] Left/right spacing of Canvas Latex equations cannot be rendered correctly.
         // Generate Dropbox view and download URLs.
@@ -115,7 +113,7 @@ function synchronizeInput() {
     // Generate OneDrive direct download URL.
     showOneDriveUrl(text);
     // Generate Canvas download URL.
-    showCanvasUrls(text);
+    showCanvasUrl(text);
     // Generate Dropbox view and download URLs.
     showDropboxUrls(text);
     // Generate Canvas Latex equation element.
@@ -179,15 +177,6 @@ function copyOneDriveDownloadUrl() {
     });
 }
 
-/** Copies the Canvas image URL. */
-function copyCanvasImageUrl() {
-    navigator.clipboard.writeText(document.getElementById('canvas-image-link').value).then(() => {
-        restoreButtons();
-        clearAccessCode();
-        document.getElementById('copy-canvas-image-link').style.backgroundColor = 'blue';
-    });
-}
-
 /** Copies the Canvas download URL. */
 function copyCanvasDownloadUrl() {
     navigator.clipboard.writeText(document.getElementById('canvas-download-link').value).then(() => {
@@ -206,6 +195,7 @@ const copyDropboxViewUrl = () => {
     });
 };
 
+/** Copies the Dropbox download URL. */
 const copyDropboxDownloadUrl = () => {
     navigator.clipboard.writeText(document.getElementById('dropbox-download-link').value).then(() => {
         restoreButtons();
@@ -264,7 +254,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // document.getElementById('copy-google-drive-view-link').addEventListener('click', () => { copyGoogleDriveViewUrl(); });
     document.getElementById('copy-google-drive-download-link').addEventListener('click', () => { copyGoogleDriveDownloadUrl(); });
     document.getElementById('copy-onedrive-download-link').addEventListener('click', () => { copyOneDriveDownloadUrl(); });
-    document.getElementById('copy-canvas-image-link').addEventListener('click', () => { copyCanvasImageUrl(); });
     document.getElementById('copy-canvas-download-link').addEventListener('click', () => { copyCanvasDownloadUrl(); });
     document.getElementById('copy-dropbox-view-link').addEventListener('click', () => { copyDropboxViewUrl(); });
     document.getElementById('copy-dropbox-download-link').addEventListener('click', () => { copyDropboxDownloadUrl(); });
@@ -281,8 +270,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.ctrlKey && e.shiftKey && e.key.toUpperCase() === 'K') { copyGoogleDriveDownloadUrl(); }
         if (e.ctrlKey && e.shiftKey && e.key.toUpperCase() === 'Q') { copyOriginalInput(); }
         if (e.ctrlKey && e.shiftKey && e.key.toUpperCase() === 'H') { copyOneDriveDownloadUrl(); }
-        if (e.ctrlKey && e.shiftKey && e.key.toUpperCase() === ':') { copyCanvasImageUrl(); }
-        if (e.ctrlKey && e.shiftKey && e.key.toUpperCase() === String.raw`"`) { copyCanvasDownloadUrl(); }
+        if (e.ctrlKey && e.shiftKey && e.key.toUpperCase() === String.raw`:`) { copyCanvasDownloadUrl(); }
         if (e.ctrlKey && e.shiftKey && e.key.toUpperCase() === '?') { copyAccessCode(); }
         // [Waiting for Canvas to Fix the Bug] Left/right spacing of Canvas Latex equations cannot be rendered correctly.
         // if (e.ctrlKey && e.shiftKey && e.key.toUpperCase() === '{') { copyCanvasLatexEquationElement(); }
