@@ -10,7 +10,7 @@ function restoreButtons() {
     document.getElementById('copy-replacement').style.backgroundColor = '#b60200';
     // document.getElementById('copy-google-drive-view-link').style.backgroundColor = '#b60200';
     document.getElementById('copy-google-drive-download-link').style.backgroundColor = '#b60200';
-    document.getElementById('copy-onedrive-download-link').style.backgroundColor = '#b60200';
+    document.getElementById('copy-onedrive-view-link').style.backgroundColor = '#b60200';
     document.getElementById('copy-dropbox-view-link').style.backgroundColor = '#b60200';
     document.getElementById('copy-dropbox-download-link').style.backgroundColor = '#b60200';
     document.getElementById('copy-canvas-download-link').style.backgroundColor = '#b60200';
@@ -37,7 +37,7 @@ function showGoogleDriveUrls(text) {
 */
 function showOneDriveUrl(text) {
     const url = onedriveUrl(text);
-    document.getElementById('onedrive-download-link').value = url === null ? '' : url;
+    document.getElementById('onedrive-view-link').value = url === null ? '' : url;
 }
 
 /** Shows Canvas direct download URL in the document.
@@ -170,10 +170,10 @@ function copyGoogleDriveDownloadUrl() {
 
 /** Copies the OneDrive download URL. */
 function copyOneDriveDownloadUrl() {
-    navigator.clipboard.writeText(document.getElementById('onedrive-download-link').value).then(() => {
+    navigator.clipboard.writeText(document.getElementById('onedrive-view-link').value).then(() => {
         restoreButtons();
         clearAccessCode();
-        document.getElementById('copy-onedrive-download-link').style.backgroundColor = 'blue';
+        document.getElementById('copy-onedrive-view-link').style.backgroundColor = 'blue';
     });
 }
 
@@ -253,7 +253,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // [No Longer Available] Google Drive direct view/download URL
     // document.getElementById('copy-google-drive-view-link').addEventListener('click', () => { copyGoogleDriveViewUrl(); });
     document.getElementById('copy-google-drive-download-link').addEventListener('click', () => { copyGoogleDriveDownloadUrl(); });
-    document.getElementById('copy-onedrive-download-link').addEventListener('click', () => { copyOneDriveDownloadUrl(); });
+    document.getElementById('copy-onedrive-view-link').addEventListener('click', () => { copyOneDriveDownloadUrl(); });
     document.getElementById('copy-canvas-download-link').addEventListener('click', () => { copyCanvasDownloadUrl(); });
     document.getElementById('copy-dropbox-view-link').addEventListener('click', () => { copyDropboxViewUrl(); });
     document.getElementById('copy-dropbox-download-link').addEventListener('click', () => { copyDropboxDownloadUrl(); });
