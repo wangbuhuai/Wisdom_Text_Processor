@@ -1,6 +1,6 @@
 // Created by Dayu Wang (dwang@stchas.edu) on 2022-05-12
 
-// Last updated by Dayu Wang (dwang@stchas.edu) on 2025-12-21
+// Last updated by Dayu Wang (dwang@stchas.edu) on 2026-07-22
 
 
 /** Restores all the buttons in the document to their initial states. */
@@ -263,19 +263,19 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('generate-code').addEventListener('click', () => { copyAccessCode(); });
     // Add key up listeners.
     document.onkeyup = function(e) {
-        if (e.ctrlKey && !e.shiftKey && !e.altKey && e.key.toUpperCase() === 'V') { pasteToInput(); }
+        if ((e.ctrlKey || e.metaKey) && !e.shiftKey && !e.altKey && e.key.toUpperCase() === 'V') { pasteToInput(); }
         if (e.ctrlKey && e.shiftKey && e.key.toUpperCase() === 'U') { copyReplacementText(); }
         // [No Longer Available] Google Drive direct view/download URL
         // if (e.ctrlKey && e.shiftKey && e.key.toUpperCase() === 'L') { copyGoogleDriveViewUrl(); }
         if (e.ctrlKey && e.shiftKey && e.key.toUpperCase() === 'K') { copyGoogleDriveDownloadUrl(); }
         if (e.ctrlKey && e.shiftKey && e.key.toUpperCase() === 'Q') { copyOriginalInput(); }
         if (e.ctrlKey && e.shiftKey && e.key.toUpperCase() === 'H') { copyOneDriveDownloadUrl(); }
-        if (e.ctrlKey && e.shiftKey && e.key.toUpperCase() === String.raw`:`) { copyCanvasDownloadUrl(); }
-        if (e.ctrlKey && e.shiftKey && e.key.toUpperCase() === '?') { copyAccessCode(); }
+        if (e.ctrlKey && e.shiftKey && (e.key.toUpperCase() === String.raw`:` || e.key.toUpperCase() === String.raw`;`)) { copyCanvasDownloadUrl(); }
+        if (e.ctrlKey && e.shiftKey && (e.key.toUpperCase() === '?' || e.key.toUpperCase() === '/')) { copyAccessCode(); }
         // [Waiting for Canvas to Fix the Bug] Left/right spacing of Canvas Latex equations cannot be rendered correctly.
         // if (e.ctrlKey && e.shiftKey && e.key.toUpperCase() === '{') { copyCanvasLatexEquationElement(); }
-        if (e.ctrlKey && e.shiftKey && e.key.toUpperCase() === '<') { copyDropboxViewUrl(); }
-        if (e.ctrlKey && e.shiftKey && e.key.toUpperCase() === '>') { copyDropboxDownloadUrl(); }
+        if (e.ctrlKey && e.shiftKey && (e.key.toUpperCase() === '<' || e.key.toUpperCase() === ',')) { copyDropboxViewUrl(); }
+        if (e.ctrlKey && e.shiftKey && (e.key.toUpperCase() === '>' || e.key.toUpperCase() === '.')) { copyDropboxDownloadUrl(); }
         if (e.ctrlKey && e.shiftKey && e.key.toUpperCase() === 'Y') { copyYouTubeVideoShortUrl(); }
         if (e.key.toUpperCase() === 'TAB') {
             restoreButtons();
